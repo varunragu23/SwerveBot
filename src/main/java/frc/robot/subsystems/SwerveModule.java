@@ -36,12 +36,14 @@ public class SwerveModule extends SubsystemBase {
   // private final RelativeEncoder driveEncoder;
   // private final RelativeEncoder turningEncoder;
 
-  private final CANCoder driveEncoder;
-  private final CANCoder turningEncoder;
+  // private final CANCoder driveEncoder;
+  // private final CANCoder turningEncoder;
 
   private final PIDController turningPidController;
 
-  private final AnalogInput absoluteEncoder;
+  // private final AnalogInput absoluteEncoder;
+
+  private final CANCoder absoluteEncoder;
 
   private final boolean absoluteEncoderReversed;
   private final double absoluteEncoderOffsetRad;
@@ -50,7 +52,7 @@ public class SwerveModule extends SubsystemBase {
   public SwerveModule(int driveMotorId, int turningMotorId, boolean driveMotorReversed, boolean turningMotorReversed, int absoluteEncoderId, double absoluteEncoderOffset, boolean absoluteEncoderReversed, int driveEncoderId, int turningEncoderId) {
     this.absoluteEncoderOffsetRad = absoluteEncoderOffset;
     this.absoluteEncoderReversed = absoluteEncoderReversed;
-    absoluteEncoder = new AnalogInput(absoluteEncoderId);
+    // absoluteEncoder = new AnalogInput(absoluteEncoderId);
 
     driveMotor = new WPI_TalonFX(driveMotorId);
     turningMotor = new WPI_TalonFX(turningMotorId);
@@ -58,46 +60,57 @@ public class SwerveModule extends SubsystemBase {
     driveMotor.setInverted(driveMotorReversed);
     turningMotor.setInverted(turningMotorReversed);
 
-    driveEncoder = new CANCoder(driveEncoderId, "rio");
-    turningEncoder = new CANCoder(turningEncoderId, "rio");
+    absoluteEncoder = new CANCoder(absoluteEncoderId, "rio");
+
+    // CANCoderConfiguration absoluteConfig = new CANewaCoderConfiguration();
     
-    CANCoderConfiguration configDrive = new CANCoderConfiguration();
+    // absoluteConfig.sensorCoefficient = 2 * 
 
-    configDrive.sensorCoefficient = ModuleConstants.kWheelDiameter * Math.PI / ModuleConstants.kTicksPerRotation;
-    configDrive.unitString = "meter";
-    configDrive.sensorTimeBase = SensorTimeBase.PerSecond;
+
+    // driveEncoder = new CANCoder(driveEncoderId, "rio");
+    // turningEncoder = new CANCoder(turningEncoderId, "rio");
     
-    CANCoderConfiguration configTurn = new CANCoderConfiguration();
+    // CANCoderConfiguration configDrive = new CANCoderConfiguration();
 
-    configTurn.sensorCoefficient = 2 * Math.PI / ModuleConstants.kTicksPerRotation;
-    configTurn.unitString = "rad";
-    configTurn.sensorTimeBase = SensorTimeBase.PerSecond;
+    // configDrive.sensorCoefficient = ModuleConstants.kWheelDiameter * Math.PI / ModuleConstants.kTicksPerRotation;
+    // configDrive.unitString = "meter";
+    // configDrive.sensorTimeBase = SensorTimeBase.PerSecond;
+    
+    // CANCoderConfiguration configTurn = new CANCoderConfiguration();
 
-    driveEncoder.configAllSettings(configDrive);
-    turningEncoder.configAllSettings(configTurn);
+    // configTurn.sensorCoefficient = 2 * Math.PI / ModuleConstants.kTicksPerRotation;
+    // configTurn.unitString = "rad";
+    // configTurn.sensorTimeBase = SensorTimeBase.PerSecond;
+
+    // driveEncoder.configAllSettings(configDrive);
+    // turningEncoder.configAllSettings(configTurn);
+
+
 
     turningPidController = new PIDController(ModuleConstants.kPTurning, ModuleConstants.kITurning, ModuleConstants.kDTurning);
     turningPidController.enableContinuousInput(-Math.PI, Math.PI);
   }
 
+  // get functions hella sus
+
   public double getDrivePosition() {
-    return driveEncoder.getPosition();
+    return driveMotor.getSelectedSensorPosition() * Math.PI * ModuleConstants.kWheelDiameter / ModuleConstants.kTicksPerRotation;
   }
 
   public double getTurningPosition() {
-    return turningEncoder.getPosition();
+    return turningMotor.getSelectedSensorPosition() * Math.PI * 2.0 / ModuleConstants.kTicksPerRotation;
   }
 
   public double getDriveVelocity() {
-    return driveEncoder.getVelocity();
+    return driveMotor.getSelectedSensorVelocity() * Math.PI * ModuleConstants.kWheelDiameter / ModuleConstants.kTicksPerRotation * 10;
   }
 
   public double getTurningVelocity() {
-    return turningEncoder.getVelocity();
+    return turningMotor.getSelectedSensorVelocity() * Math.PI * 2.0 / ModuleConstants.kTicksPerRotation;
   }
 
   public double getAbsoluteEncoderRad() {
-    double angle = absoluteEncoder.getVoltage() / RobotController.getVoltage5V();
+    double angle = absoluteEncoder.getBusVoltage() / RobotController.getVoltage5V(); // might need to correct??????
     angle *= 2.0 * Math.PI;
     angle -= absoluteEncoderOffsetRad;
     if(absoluteEncoderReversed) angle *= -1.0;
@@ -105,8 +118,8 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public void resetEncoders() {
-    driveEncoder.setPosition(0);
-    turningEncoder.setPosition(getAbsoluteEncoderRad());
+    driveMotor.setSelectedSensorPosition(0);
+    turningMotor.setSelectedSensorPosition(0);
   }
 
   public SwerveModuleState getState() {
