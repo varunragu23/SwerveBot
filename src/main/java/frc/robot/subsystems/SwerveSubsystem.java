@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.sensors.PigeonIMU;
+import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -62,7 +62,7 @@ public class SwerveSubsystem extends SubsystemBase {
             DriveConstants.kBackRightDriveCANcoderPort,
             DriveConstants.kBackRightTurnCANcoderPort);
 
-    private final PigeonIMU imu = new PigeonIMU(DriveConstants.kIMUPort);
+    private final Pigeon2 imu = new Pigeon2(DriveConstants.kIMUPort);
   
     private final SwerveDriveOdometry odometer = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, new Rotation2d(0));
 
