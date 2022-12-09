@@ -121,4 +121,11 @@ public class SwerveSubsystem extends SubsystemBase {
     backRight.setDesiredState(desiredStates[3]);
   }
 
+  public void testMotors() {
+    // for testing purposes test each swerve module individually at first
+    // once one module has been completed, replace mentions of it with the next one you're testing it with
+    SwerveModuleState testRun = new SwerveModuleState(1.0, Rotation2d.fromDegrees(90)); // change these values as necessary
+    // first is speed in meteres per second, second is angle
+    frontLeft.setDesiredState(testRun);
+  }
 }

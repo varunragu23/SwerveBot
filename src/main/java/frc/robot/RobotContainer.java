@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
@@ -51,7 +52,12 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(driverJoystick, 2).whenPressed(() -> swerveSubsystem.zeroHeading());
+    new JoystickButton(driverJoystick, Button.kX.value).whenPressed(() -> swerveSubsystem.zeroHeading());
+
+    // use only this for testing purposes for now
+    // if it works for all 4 swerve modules then you can use joystick
+    // check the testMotors function in swerveSubsystem for more info
+    new JoystickButton(driverJoystick, Button.kY.value).whenPressed(() -> swerveSubsystem.testMotors());
   }
 
   /**

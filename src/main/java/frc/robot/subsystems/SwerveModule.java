@@ -139,9 +139,6 @@ public class SwerveModule extends SubsystemBase {
     state = SwerveModuleState.optimize(state, getState().angle);
     driveMotor.set(state.speedMetersPerSecond / DriveConstants.kPhysicalMaxSpeedMetersPerSecond); // goofy ahh way could do pid here as well but idk lmfao
     turningMotor.set(turningPidController.calculate(getTurningPosition(), state.angle.getRadians()));
-
-    
-
   }
 
   @Override
