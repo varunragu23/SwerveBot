@@ -25,9 +25,7 @@ public class SwerveSubsystem extends SubsystemBase {
             DriveConstants.kFrontLeftTurningEncoderReversed,
             DriveConstants.kFrontLeftDriveAbsoluteEncoderPort,
             DriveConstants.kFrontLeftDriveAbsoluteEncoderOffsetRad,
-            DriveConstants.kFrontLeftDriveAbsoluteEncoderReversed,
-            DriveConstants.kFrontLeftDriveCANcoderPort,
-            DriveConstants.kFrontLeftTurnCANcoderPort);
+            DriveConstants.kFrontLeftDriveAbsoluteEncoderReversed);
 
     private final SwerveModule frontRight = new SwerveModule(
             DriveConstants.kFrontRightDriveMotorPort,
@@ -36,9 +34,7 @@ public class SwerveSubsystem extends SubsystemBase {
             DriveConstants.kFrontRightTurningEncoderReversed,
             DriveConstants.kFrontRightDriveAbsoluteEncoderPort,
             DriveConstants.kFrontRightDriveAbsoluteEncoderOffsetRad,
-            DriveConstants.kFrontRightDriveAbsoluteEncoderReversed,
-            DriveConstants.kFrontRightDriveCANcoderPort,
-            DriveConstants.kFrontRightTurnCANcoderPort);
+            DriveConstants.kFrontRightDriveAbsoluteEncoderReversed);
 
     private final SwerveModule backLeft = new SwerveModule(
             DriveConstants.kBackLeftDriveMotorPort,
@@ -47,9 +43,7 @@ public class SwerveSubsystem extends SubsystemBase {
             DriveConstants.kBackLeftTurningEncoderReversed,
             DriveConstants.kBackLeftDriveAbsoluteEncoderPort,
             DriveConstants.kBackLeftDriveAbsoluteEncoderOffsetRad,
-            DriveConstants.kBackLeftDriveAbsoluteEncoderReversed,
-            DriveConstants.kBackLeftDriveCANcoderPort,
-            DriveConstants.kBackLeftTurnCANcoderPort);
+            DriveConstants.kBackLeftDriveAbsoluteEncoderReversed);
 
     private final SwerveModule backRight = new SwerveModule(
             DriveConstants.kBackRightDriveMotorPort,
@@ -58,9 +52,7 @@ public class SwerveSubsystem extends SubsystemBase {
             DriveConstants.kBackRightTurningEncoderReversed,
             DriveConstants.kBackRightDriveAbsoluteEncoderPort,
             DriveConstants.kBackRightDriveAbsoluteEncoderOffsetRad,
-            DriveConstants.kBackRightDriveAbsoluteEncoderReversed,
-            DriveConstants.kBackRightDriveCANcoderPort,
-            DriveConstants.kBackRightTurnCANcoderPort);
+            DriveConstants.kBackRightDriveAbsoluteEncoderReversed);
 
     private final Pigeon2 imu = new Pigeon2(DriveConstants.kIMUPort);
   

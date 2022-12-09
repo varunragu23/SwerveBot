@@ -95,20 +95,6 @@ public final class Constants {
         public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = -1.816;
         public static final double kBackRightDriveAbsoluteEncoderOffsetRad = -4.811;
 
-        // NEED TO CHANGE
-
-        public static final int kFrontLeftDriveCANcoderPort = 0;
-        public static final int kBackLeftDriveCANcoderPort = 2;
-        public static final int kFrontRightDriveCANcoderPort = 1;
-        public static final int kBackRightDriveCANcoderPort = 3;
-
-        // NEED TO CHANGE
-
-        public static final int kFrontLeftTurnCANcoderPort = 0;
-        public static final int kBackLeftTurnCANcoderPort = 2;
-        public static final int kFrontRightTurnCANcoderPort = 1;
-        public static final int kBackRightTurnCANcoderPort = 3;
-
 
         public static final int kIMUPort = 10; // ?????
 

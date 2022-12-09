@@ -49,7 +49,7 @@ public class SwerveModule extends SubsystemBase {
   private final double absoluteEncoderOffsetRad;
   
 
-  public SwerveModule(int driveMotorId, int turningMotorId, boolean driveMotorReversed, boolean turningMotorReversed, int absoluteEncoderId, double absoluteEncoderOffset, boolean absoluteEncoderReversed, int driveEncoderId, int turningEncoderId) {
+  public SwerveModule(int driveMotorId, int turningMotorId, boolean driveMotorReversed, boolean turningMotorReversed, int absoluteEncoderId, double absoluteEncoderOffset, boolean absoluteEncoderReversed) {
     this.absoluteEncoderOffsetRad = absoluteEncoderOffset;
     this.absoluteEncoderReversed = absoluteEncoderReversed;
     // absoluteEncoder = new AnalogInput(absoluteEncoderId);
