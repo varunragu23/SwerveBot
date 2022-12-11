@@ -18,10 +18,10 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
     public static final class ModuleConstants {
-        public static final double kWheelDiameter = Units.inchesToMeters(6.0); // CHANGE!!!!
-        public static final int kTicksPerRotation = 2048; // CHANGE!!!!!!
+        public static final double kWheelDiameter = Units.inchesToMeters(4); // done
+        public static final int kTicksPerRotation = 2048; // done
 
-        public static final double kPTurning = 0.5; // CHANGE!!!
+        public static final double kPTurning = 0.3; // CHANGE!!!
         public static final double kDTurning = 0.0; // necessary??
         public static final double kITurning = 0.0; // necessary??
     }
@@ -63,10 +63,10 @@ public final class Constants {
         public static final int kBackRightTurningMotorPort = 5;
 
         // MIGHT NEED TO CHANGE
-        public static final boolean kFrontLeftTurningEncoderReversed = true;
-        public static final boolean kBackLeftTurningEncoderReversed = true;
-        public static final boolean kFrontRightTurningEncoderReversed = true;
-        public static final boolean kBackRightTurningEncoderReversed = true;
+        public static final boolean kFrontLeftTurningEncoderReversed = false; //true
+        public static final boolean kBackLeftTurningEncoderReversed = false; //true
+        public static final boolean kFrontRightTurningEncoderReversed = false; //true
+        public static final boolean kBackRightTurningEncoderReversed = false; //true
 
         // MIGHT NEED TO CHANGE
         public static final boolean kFrontLeftDriveEncoderReversed = true;
@@ -92,7 +92,7 @@ public final class Constants {
         public static final double kBackRightDriveAbsoluteEncoderOffsetRad = -4.811;
 
 
-        public static final int kIMUPort = 10; // ?????
+        public static final int kIMUPort = 13; // ?????
 
 
         public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3; // ????
