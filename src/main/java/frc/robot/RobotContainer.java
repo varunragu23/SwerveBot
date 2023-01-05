@@ -37,10 +37,7 @@ public class RobotContainer {
 
     swerveSubsystem.setDefaultCommand(new SwerveJoystick(
       swerveSubsystem,
-      () -> -driverJoystick.getRawAxis(OIConstants.kDriverYAxis),
-      () -> driverJoystick.getRawAxis(OIConstants.kDriverXAxis),
-      () -> driverJoystick.getRawAxis(OIConstants.kDriverRotAxis),
-      () -> !driverJoystick.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
+     driverJoystick));
 
     configureButtonBindings();
   }
@@ -59,7 +56,7 @@ public class RobotContainer {
     // if it works for all 4 swerve modules then you can use joystick
     // check the testMotors function in swerveSubsystem for more info
     
-    new JoystickButton(driverJoystick, Button.kY.value).whenPressed(() -> swerveSubsystem.testMotors());
+    // new JoystickButton(driverJoystick, Button.kY.value).whenPressed(() -> swerveSubsystem.testMotors());
   }
 
   /**

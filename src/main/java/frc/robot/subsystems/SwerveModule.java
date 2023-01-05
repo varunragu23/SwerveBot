@@ -18,6 +18,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
@@ -40,6 +41,7 @@ public class SwerveModule extends SubsystemBase {
   // private final CANCoder turningEncoder;
 
   private final PIDController turningPidController;
+  // private final PIDController drivingPidController;
 
   // private final AnalogInput absoluteEncoder;
 
@@ -48,11 +50,14 @@ public class SwerveModule extends SubsystemBase {
   private final boolean absoluteEncoderReversed;
   private final double absoluteEncoderOffsetRad;
   
+  private final String motorId;
 
-  public SwerveModule(int driveMotorId, int turningMotorId, boolean driveMotorReversed, boolean turningMotorReversed, int absoluteEncoderId, double absoluteEncoderOffset, boolean absoluteEncoderReversed) {
+  public SwerveModule(int driveMotorId, int turningMotorId, boolean driveMotorReversed, boolean turningMotorReversed, int absoluteEncoderId, double absoluteEncoderOffset, boolean absoluteEncoderReversed, String motorId) {
     this.absoluteEncoderOffsetRad = absoluteEncoderOffset;
     this.absoluteEncoderReversed = absoluteEncoderReversed;
     // absoluteEncoder = new AnalogInput(absoluteEncoderId);
+
+    this.motorId = motorId;
 
     driveMotor = new WPI_TalonFX(driveMotorId);
     turningMotor = new WPI_TalonFX(turningMotorId);
@@ -60,7 +65,7 @@ public class SwerveModule extends SubsystemBase {
     driveMotor.setInverted(driveMotorReversed);
     turningMotor.setInverted(turningMotorReversed);
 
-    absoluteEncoder = new CANCoder(absoluteEncoderId, "rio");
+    absoluteEncoder = new CANCoder(absoluteEncoderId);
 
     // CANCoderConfiguration absoluteConfig = new CANewaCoderConfiguration();
     
@@ -89,6 +94,9 @@ public class SwerveModule extends SubsystemBase {
 
     turningPidController = new PIDController(ModuleConstants.kPTurning, ModuleConstants.kITurning, ModuleConstants.kDTurning);
     turningPidController.enableContinuousInput(-Math.PI, Math.PI);
+    // drivingPidController = new PIDController(ModuleConstants.kPDriving, ModuleConstants.kIDriving, ModuleConstants.kDDriving);
+    // drivingPidController.enableContinuousInput(-0.8, 0.8);
+    resetEncoders();
   }
 
   // get functions hella sus
@@ -99,7 +107,7 @@ public class SwerveModule extends SubsystemBase {
 
   public double getTurningPosition() {
     return turningMotor.getSelectedSensorPosition() * Math.PI * 2.0 / ModuleConstants.kTicksPerRotation;
-  }
+  } 
 
   public double getDriveVelocity() {
     return driveMotor.getSelectedSensorVelocity() * Math.PI * ModuleConstants.kWheelDiameter / ModuleConstants.kTicksPerRotation * 10;
@@ -110,8 +118,7 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public double getAbsoluteEncoderRad() {
-    double angle = absoluteEncoder.getBusVoltage() / RobotController.getVoltage5V(); // might need to correct??????
-    angle *= 2.0 * Math.PI;
+    double angle = absoluteEncoder.getAbsolutePosition() * 2.0 * Math.PI / 360.000; // might need to correct??????
     angle -= absoluteEncoderOffsetRad;
     if(absoluteEncoderReversed) angle *= -1.0;
     return angle;
@@ -132,17 +139,21 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public void setDesiredState(SwerveModuleState state) {
-    if(Math.abs(state.speedMetersPerSecond) < 0.001) {
+    if(Math.abs(state.speedMetersPerSecond) < 0.1) {
       stop();
       return;
     }
     state = SwerveModuleState.optimize(state, getState().angle);
     driveMotor.set(state.speedMetersPerSecond / DriveConstants.kPhysicalMaxSpeedMetersPerSecond); // goofy ahh way could do pid here as well but idk lmfao
+    // driveMotor.set(drivingPidController.calculate(getDriveVelocity(), state.speedMetersPerSecond));
     turningMotor.set(turningPidController.calculate(getTurningPosition(), state.angle.getRadians()));
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber(motorId + " drive Position", getDrivePosition());
+    SmartDashboard.putNumber(motorId + " turning Position", getTurningPosition());
+    SmartDashboard.putNumber(motorId + " drive Speed", getDriveVelocity());
   }
 }

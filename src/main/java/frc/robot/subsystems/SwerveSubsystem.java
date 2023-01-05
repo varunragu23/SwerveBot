@@ -25,7 +25,8 @@ public class SwerveSubsystem extends SubsystemBase {
             DriveConstants.kFrontLeftTurningEncoderReversed,
             DriveConstants.kFrontLeftDriveAbsoluteEncoderPort,
             DriveConstants.kFrontLeftDriveAbsoluteEncoderOffsetRad,
-            DriveConstants.kFrontLeftDriveAbsoluteEncoderReversed);
+            DriveConstants.kFrontLeftDriveAbsoluteEncoderReversed,
+            "frontLeft");
 
     private final SwerveModule frontRight = new SwerveModule(
             DriveConstants.kFrontRightDriveMotorPort,
@@ -34,7 +35,8 @@ public class SwerveSubsystem extends SubsystemBase {
             DriveConstants.kFrontRightTurningEncoderReversed,
             DriveConstants.kFrontRightDriveAbsoluteEncoderPort,
             DriveConstants.kFrontRightDriveAbsoluteEncoderOffsetRad,
-            DriveConstants.kFrontRightDriveAbsoluteEncoderReversed);
+            DriveConstants.kFrontRightDriveAbsoluteEncoderReversed,
+            "frontRight");
 
     private final SwerveModule backLeft = new SwerveModule(
             DriveConstants.kBackLeftDriveMotorPort,
@@ -43,7 +45,8 @@ public class SwerveSubsystem extends SubsystemBase {
             DriveConstants.kBackLeftTurningEncoderReversed,
             DriveConstants.kBackLeftDriveAbsoluteEncoderPort,
             DriveConstants.kBackLeftDriveAbsoluteEncoderOffsetRad,
-            DriveConstants.kBackLeftDriveAbsoluteEncoderReversed);
+            DriveConstants.kBackLeftDriveAbsoluteEncoderReversed,
+            "backleft");
 
     private final SwerveModule backRight = new SwerveModule(
             DriveConstants.kBackRightDriveMotorPort,
@@ -52,7 +55,8 @@ public class SwerveSubsystem extends SubsystemBase {
             DriveConstants.kBackRightTurningEncoderReversed,
             DriveConstants.kBackRightDriveAbsoluteEncoderPort,
             DriveConstants.kBackRightDriveAbsoluteEncoderOffsetRad,
-            DriveConstants.kBackRightDriveAbsoluteEncoderReversed);
+            DriveConstants.kBackRightDriveAbsoluteEncoderReversed,
+            "backRight");
 
     private final Pigeon2 imu = new Pigeon2(DriveConstants.kIMUPort);
   
@@ -78,7 +82,9 @@ public class SwerveSubsystem extends SubsystemBase {
     double[] YPR = new double[3];
     // imu.getYawPitchRoll(YPR);
     imu.getYawPitchRoll(YPR);
-    return YPR[0];
+    double ret = YPR[0];
+    while(ret >= 360.01) ret -= 360.00;
+    return ret;
   }
 
   public Rotation2d getRotation2d() {

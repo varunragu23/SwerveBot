@@ -19,15 +19,15 @@ import edu.wpi.first.math.util.Units;
 public final class Constants {
     public static final class ModuleConstants {
         public static final double kWheelDiameter = Units.inchesToMeters(4); // done
-        public static final int kTicksPerRotation = 2048; // done
+        public static final int kTicksPerRotation = 2048 * 150 / 7; // done
 
-        public static final double kPTurning = 0.3; // CHANGE!!!
+        public static final double kPTurning = 0.5; // CHANGE!!!
         public static final double kDTurning = 0.0; // necessary??
         public static final double kITurning = 0.0; // necessary??
     }
 
     public static final class OIConstants {
-        public static final double kDeadband = 0.05;
+        public static final double kDeadband = 0.1;
 
         public static final int kDriverControllerPort = 0;
 
@@ -81,13 +81,13 @@ public final class Constants {
 
         // MIGHT NEED TO CHANGE
         public static final boolean kFrontLeftDriveAbsoluteEncoderReversed = false;
-        public static final boolean kBackLeftDriveAbsoluteEncoderReversed = false;
+        public static final boolean kBackLeftDriveAbsoluteEncoderReversed = true;
         public static final boolean kFrontRightDriveAbsoluteEncoderReversed = false;
         public static final boolean kBackRightDriveAbsoluteEncoderReversed = false;
 
         // NEED TO CHANGE
         public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = -0.254;
-        public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = -1.252;
+        public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = 5.89; // done
         public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = -1.816;
         public static final double kBackRightDriveAbsoluteEncoderOffsetRad = -4.811;
 
