@@ -19,10 +19,11 @@ import edu.wpi.first.math.util.Units;
 public final class Constants {
     public static final class ModuleConstants {
         public static final double kWheelDiameter = Units.inchesToMeters(4); // done
-        public static final int kTicksPerRotation = 2048 * 150 / 7; // done
+        public static final double kTicksPerRotation = 2048 * 150 / 7; // done
+        public static final double kDriveTicksPerRotation = 2048 * 6.75;
 
-        public static final double kPTurning = 0.5; // CHANGE!!!
-        public static final double kDTurning = 0.0; // necessary??
+        public static final double kPTurning = 0.6; // CHANGE!!!
+        public static final double kDTurning = 0.01; // necessary??
         public static final double kITurning = 0.0; // necessary??
     }
 
@@ -80,22 +81,22 @@ public final class Constants {
         public static final int kBackRightDriveAbsoluteEncoderPort = 6;
 
         // MIGHT NEED TO CHANGE
-        public static final boolean kFrontLeftDriveAbsoluteEncoderReversed = false;
+        public static final boolean kFrontLeftDriveAbsoluteEncoderReversed = true;
         public static final boolean kBackLeftDriveAbsoluteEncoderReversed = true;
-        public static final boolean kFrontRightDriveAbsoluteEncoderReversed = false;
-        public static final boolean kBackRightDriveAbsoluteEncoderReversed = false;
+        public static final boolean kFrontRightDriveAbsoluteEncoderReversed = true;
+        public static final boolean kBackRightDriveAbsoluteEncoderReversed = true;
 
         // NEED TO CHANGE
-        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = -0.254;
+        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = 4.54365;
         public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = 5.89; // done
-        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = -1.816;
-        public static final double kBackRightDriveAbsoluteEncoderOffsetRad = -4.811;
+        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = 0.466330;
+        public static final double kBackRightDriveAbsoluteEncoderOffsetRad = 6.08;
 
 
-        public static final int kIMUPort = 13; // ?????
+        public static final int kIMUPort = 13;
 
 
-        public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3; // ????
+        public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 4; // ????
 
 
         public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3; // ????

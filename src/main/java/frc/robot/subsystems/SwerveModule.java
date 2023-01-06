@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import javax.lang.model.element.ModuleElement;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.CANCoderConfiguration;
@@ -96,13 +98,15 @@ public class SwerveModule extends SubsystemBase {
     turningPidController.enableContinuousInput(-Math.PI, Math.PI);
     // drivingPidController = new PIDController(ModuleConstants.kPDriving, ModuleConstants.kIDriving, ModuleConstants.kDDriving);
     // drivingPidController.enableContinuousInput(-0.8, 0.8);
+    turningPidController.setTolerance(0.05);
+
     resetEncoders();
   }
 
   // get functions hella sus
 
   public double getDrivePosition() {
-    return driveMotor.getSelectedSensorPosition() * Math.PI * ModuleConstants.kWheelDiameter / ModuleConstants.kTicksPerRotation;
+    return driveMotor.getSelectedSensorPosition() * Math.PI * ModuleConstants.kWheelDiameter / ModuleConstants.kDriveTicksPerRotation;
   }
 
   public double getTurningPosition() {
@@ -110,7 +114,7 @@ public class SwerveModule extends SubsystemBase {
   } 
 
   public double getDriveVelocity() {
-    return driveMotor.getSelectedSensorVelocity() * Math.PI * ModuleConstants.kWheelDiameter / ModuleConstants.kTicksPerRotation * 10;
+    return driveMotor.getSelectedSensorVelocity() * Math.PI * ModuleConstants.kWheelDiameter / ModuleConstants.kDriveTicksPerRotation * 10;
   }
 
   public double getTurningVelocity() {
@@ -126,7 +130,7 @@ public class SwerveModule extends SubsystemBase {
 
   public void resetEncoders() {
     driveMotor.setSelectedSensorPosition(0);
-    turningMotor.setSelectedSensorPosition(0);
+    turningMotor.setSelectedSensorPosition(getAbsoluteEncoderRad() / (2.000 * Math.PI) * ModuleConstants.kTicksPerRotation);
   }
 
   public SwerveModuleState getState() {
@@ -147,6 +151,8 @@ public class SwerveModule extends SubsystemBase {
     driveMotor.set(state.speedMetersPerSecond / DriveConstants.kPhysicalMaxSpeedMetersPerSecond); // goofy ahh way could do pid here as well but idk lmfao
     // driveMotor.set(drivingPidController.calculate(getDriveVelocity(), state.speedMetersPerSecond));
     turningMotor.set(turningPidController.calculate(getTurningPosition(), state.angle.getRadians()));
+    SmartDashboard.putNumber(motorId + " goal Angle", state.angle.getRadians());
+
   }
 
   @Override
@@ -154,6 +160,7 @@ public class SwerveModule extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber(motorId + " drive Position", getDrivePosition());
     SmartDashboard.putNumber(motorId + " turning Position", getTurningPosition());
+    SmartDashboard.putNumber(motorId + " absolute Position", getAbsoluteEncoderRad());
     SmartDashboard.putNumber(motorId + " drive Speed", getDriveVelocity());
   }
 }

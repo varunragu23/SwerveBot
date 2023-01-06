@@ -84,7 +84,7 @@ public class SwerveSubsystem extends SubsystemBase {
     imu.getYawPitchRoll(YPR);
     double ret = YPR[0];
     while(ret >= 360.01) ret -= 360.00;
-    return ret;
+    return -ret;
   }
 
   public Rotation2d getRotation2d() {
@@ -125,6 +125,13 @@ public class SwerveSubsystem extends SubsystemBase {
     frontRight.setDesiredState(desiredStates[1]);
     backLeft.setDesiredState(desiredStates[2]);
     backRight.setDesiredState(desiredStates[3]);
+  }
+
+  public void resetEncoders() {
+    frontLeft.resetEncoders();
+    frontRight.resetEncoders();
+    backLeft.resetEncoders();
+    backRight.resetEncoders();
   }
 
   public void testMotors() {
