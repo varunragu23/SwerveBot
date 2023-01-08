@@ -123,8 +123,8 @@ public class SwerveModule extends SubsystemBase {
 
   public double getAbsoluteEncoderRad() {
     double angle = absoluteEncoder.getAbsolutePosition() * 2.0 * Math.PI / 360.000; // might need to correct??????
-    angle -= absoluteEncoderOffsetRad;
-    if(absoluteEncoderReversed) angle *= -1.0;
+    // angle -= absoluteEncoderOffsetRad;
+    // if(absoluteEncoderReversed) angle *= -1.0;
     return angle;
   }
 
@@ -151,16 +151,16 @@ public class SwerveModule extends SubsystemBase {
     driveMotor.set(state.speedMetersPerSecond / DriveConstants.kPhysicalMaxSpeedMetersPerSecond); // goofy ahh way could do pid here as well but idk lmfao
     // driveMotor.set(drivingPidController.calculate(getDriveVelocity(), state.speedMetersPerSecond));
     turningMotor.set(turningPidController.calculate(getTurningPosition(), state.angle.getRadians()));
-    SmartDashboard.putNumber(motorId + " goal Angle", state.angle.getRadians());
+    // SmartDashboard.putNumber(motorId + " goal Angle", state.angle.getRadians());
 
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber(motorId + " drive Position", getDrivePosition());
-    SmartDashboard.putNumber(motorId + " turning Position", getTurningPosition());
+    // SmartDashboard.putNumber(motorId + " drive Position", getDrivePosition());
+    // SmartDashboard.putNumber(motorId + " turning Position", getTurningPosition());
     SmartDashboard.putNumber(motorId + " absolute Position", getAbsoluteEncoderRad());
-    SmartDashboard.putNumber(motorId + " drive Speed", getDriveVelocity());
+    // SmartDashboard.putNumber(motorId + " drive Speed", getDriveVelocity());
   }
 }

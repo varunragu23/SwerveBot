@@ -35,9 +35,9 @@ public class RobotContainer {
     // Configure the button bindings
 
 
-    swerveSubsystem.setDefaultCommand(new SwerveJoystick(
-      swerveSubsystem,
-     driverJoystick));
+    // swerveSubsystem.setDefaultCommand(new SwerveJoystick(
+      // swerveSubsystem,
+    //  driverJoystick));
 
     configureButtonBindings();
   }
@@ -49,14 +49,14 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(driverJoystick, Button.kX.value).whenPressed(() -> swerveSubsystem.zeroHeading());
+    // new JoystickButton(driverJoystick, Button.kX.value).whenPressed(() -> swerveSubsystem.zeroHeading());
     //new JoystickButton(driverJoystick)
 
     // use only this for testing purposes for now
     // if it works for all 4 swerve modules then you can use joystick
     // check the testMotors function in swerveSubsystem for more info
     
-    new JoystickButton(driverJoystick, Button.kY.value).whenPressed(() -> swerveSubsystem.resetEncoders());
+    // new JoystickButton(driverJoystick, Button.kY.value).whenPressed(() -> swerveSubsystem.resetEncoders());
   }
 
   /**
