@@ -24,8 +24,8 @@ public final class Constants {
 
         public static final double kPTurning = 0.65; // CHANGE!!!
         public static final double kDTurning = 0.025; // necessary??
-        public static final double kITurning = 0.0; // necessary??
-    }
+        public static final double kITurning = 0.0;
+   }
 
     public static final class OIConstants {
         public static final double kDeadband = 0.1;
@@ -91,18 +91,13 @@ public final class Constants {
         public static final double kFRAbsEncoderOffsetDeg = 22.7;
         public static final double kBRAbsEncoderOffsetDeg = 168.8;
 
-        // public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = Units.degreesToRadians(kFLAbsEcoderOffsetDeg);
-        // public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = Units.degreesToRadians(kBLAbsEcoderOffsetDeg);
-        // public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = Units.degreesToRadians(kFRAbsEncoderOffsetDeg);
-        // public static final double kBackRightDriveAbsoluteEncoderOffsetRad = Units.degreesToRadians(kBRAbsEncoderOffsetDeg);
+        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = Units.degreesToRadians(kFLAbsEcoderOffsetDeg);
+        public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = Units.degreesToRadians(kBLAbsEcoderOffsetDeg);
+        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = Units.degreesToRadians(kFRAbsEncoderOffsetDeg);
+        public static final double kBackRightDriveAbsoluteEncoderOffsetRad = Units.degreesToRadians(kBRAbsEncoderOffsetDeg);
 
         
 
-
-        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = 4.543;
-        public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = 5.92; // done
-        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = 0.407;
-        public static final double kBackRightDriveAbsoluteEncoderOffsetRad = 6.11;
 
 
         public static final int kIMUPort = 13;
