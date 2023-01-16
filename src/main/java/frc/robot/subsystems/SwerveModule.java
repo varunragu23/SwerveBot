@@ -33,19 +33,8 @@ public class SwerveModule extends SubsystemBase {
   private final WPI_TalonFX driveMotor;
   private final WPI_TalonFX turningMotor;
 
-  // private final CANEncoder driveEncoder;
-  // private final CANEncoder turningEncoder;
-
-  // private final RelativeEncoder driveEncoder;
-  // private final RelativeEncoder turningEncoder;
-
-  // private final CANCoder driveEncoder;
-  // private final CANCoder turningEncoder;
-
   private final PIDController turningPidController;
   // private final PIDController drivingPidController;
-
-  // private final AnalogInput absoluteEncoder;
 
   private final CANCoder absoluteEncoder;
 
@@ -57,7 +46,6 @@ public class SwerveModule extends SubsystemBase {
   public SwerveModule(int driveMotorId, int turningMotorId, boolean driveMotorReversed, boolean turningMotorReversed, int absoluteEncoderId, double absoluteEncoderOffset, boolean absoluteEncoderReversed, String motorId) {
     this.absoluteEncoderOffsetRad = absoluteEncoderOffset;
     this.absoluteEncoderReversed = absoluteEncoderReversed;
-    // absoluteEncoder = new AnalogInput(absoluteEncoderId);
 
     this.motorId = motorId;
 
@@ -98,7 +86,7 @@ public class SwerveModule extends SubsystemBase {
     turningPidController.enableContinuousInput(-Math.PI, Math.PI);
     // drivingPidController = new PIDController(ModuleConstants.kPDriving, ModuleConstants.kIDriving, ModuleConstants.kDDriving);
     // drivingPidController.enableContinuousInput(-0.8, 0.8);
-    turningPidController.setTolerance(0.05);
+    turningPidController.setTolerance(0.02);
 
     resetEncoders();
   }
@@ -123,8 +111,8 @@ public class SwerveModule extends SubsystemBase {
 
   public double getAbsoluteEncoderRad() {
     double angle = absoluteEncoder.getAbsolutePosition() * 2.0 * Math.PI / 360.000; // might need to correct??????
-    // angle -= absoluteEncoderOffsetRad;
-    // if(absoluteEncoderReversed) angle *= -1.0;
+    angle -= absoluteEncoderOffsetRad;
+    if (absoluteEncoderReversed) angle *= -1.0;
     return angle;
   }
 
@@ -152,15 +140,21 @@ public class SwerveModule extends SubsystemBase {
     // driveMotor.set(drivingPidController.calculate(getDriveVelocity(), state.speedMetersPerSecond));
     turningMotor.set(turningPidController.calculate(getTurningPosition(), state.angle.getRadians()));
     // SmartDashboard.putNumber(motorId + " goal Angle", state.angle.getRadians());
+    // SmartDashboard.putNumber(motorId + " actual Angle", getTurningPosition());
+    double dif = state.angle.getRadians() - getTurningPosition();
+    dif = Math.abs(dif);
+    while(dif > Math.PI) dif -= 2.0 * Math.PI;
+    dif = Math.abs(dif);
+    SmartDashboard.putNumber(motorId + " dif Angle", dif);
 
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    // SmartDashboard.putNumber(motorId + " drive Position", getDrivePosition());
-    // SmartDashboard.putNumber(motorId + " turning Position", getTurningPosition());
+    SmartDashboard.putNumber(motorId + " drive Position", getDrivePosition());
+    SmartDashboard.putNumber(motorId + " turning Position", getTurningPosition());
     SmartDashboard.putNumber(motorId + " absolute Position", getAbsoluteEncoderRad());
-    // SmartDashboard.putNumber(motorId + " drive Speed", getDriveVelocity());
+    SmartDashboard.putNumber(motorId + " drive Speed", getDriveVelocity());
   }
 }

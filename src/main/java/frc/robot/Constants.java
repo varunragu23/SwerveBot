@@ -22,8 +22,8 @@ public final class Constants {
         public static final double kTicksPerRotation = 2048 * 150 / 7; // done
         public static final double kDriveTicksPerRotation = 2048 * 6.75;
 
-        public static final double kPTurning = 0.6; // CHANGE!!!
-        public static final double kDTurning = 0.01; // necessary??
+        public static final double kPTurning = 0.65; // CHANGE!!!
+        public static final double kDTurning = 0.025; // necessary??
         public static final double kITurning = 0.0; // necessary??
     }
 
@@ -86,11 +86,23 @@ public final class Constants {
         public static final boolean kFrontRightDriveAbsoluteEncoderReversed = true;
         public static final boolean kBackRightDriveAbsoluteEncoderReversed = true;
 
-        // NEED TO CHANGE
-        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = 4.54365;
-        public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = 5.89; // done
-        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = 0.466330;
-        public static final double kBackRightDriveAbsoluteEncoderOffsetRad = 6.08;
+        public static final double kFLAbsEcoderOffsetDeg = 81.5;
+        public static final double kBLAbsEcoderOffsetDeg = 160.2;
+        public static final double kFRAbsEncoderOffsetDeg = 22.7;
+        public static final double kBRAbsEncoderOffsetDeg = 168.8;
+
+        // public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = Units.degreesToRadians(kFLAbsEcoderOffsetDeg);
+        // public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = Units.degreesToRadians(kBLAbsEcoderOffsetDeg);
+        // public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = Units.degreesToRadians(kFRAbsEncoderOffsetDeg);
+        // public static final double kBackRightDriveAbsoluteEncoderOffsetRad = Units.degreesToRadians(kBRAbsEncoderOffsetDeg);
+
+        
+
+
+        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = 4.543;
+        public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = 5.92; // done
+        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = 0.407;
+        public static final double kBackRightDriveAbsoluteEncoderOffsetRad = 6.11;
 
 
         public static final int kIMUPort = 13;
@@ -101,7 +113,7 @@ public final class Constants {
 
         public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3; // ????
         
-        public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 4; // ?????
+        public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 2; // ?????
         public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond/4; //????
     }
 
