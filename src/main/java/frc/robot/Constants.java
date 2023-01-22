@@ -109,10 +109,10 @@ public final class Constants {
         public static final double kFRAbsEncoderOffsetDeg = 22.7;
         public static final double kBRAbsEncoderOffsetDeg = 168.8;
 
-        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = Units.degreesToRadians(kFLAbsEcoderOffsetDeg);
-        public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = Units.degreesToRadians(kBLAbsEcoderOffsetDeg);
-        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = Units.degreesToRadians(kFRAbsEncoderOffsetDeg);
-        public static final double kBackRightDriveAbsoluteEncoderOffsetRad = Units.degreesToRadians(kBRAbsEncoderOffsetDeg);
+        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = 4.53;
+        public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = 5.93;
+        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = 0.414;
+        public static final double kBackRightDriveAbsoluteEncoderOffsetRad = 6.111;
 
         
 
@@ -126,7 +126,7 @@ public final class Constants {
 
         public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3; // ????
         
-        public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 2; // ?????
+        public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 4; // ?????
         public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond/4; //????
     }
 
