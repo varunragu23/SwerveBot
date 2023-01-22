@@ -64,22 +64,23 @@ public class SwerveJoystick extends CommandBase {
 
     xSpeed = xLimiter.calculate(xSpeed) * DriveConstants.kTeleDriveMaxSpeedMetersPerSecond;
     ySpeed = yLimiter.calculate(ySpeed) * DriveConstants.kTeleDriveMaxSpeedMetersPerSecond;
+    
+    swerveSubsystem.drive(xSpeed, ySpeed, turningSpeed);
 
+  //   ChassisSpeeds chassisSpeeds;
 
-    ChassisSpeeds chassisSpeeds;
+  //   if(driverJoystick.getBButton()) {
+  //     fieldOriented = !fieldOriented;
+  //   }
 
-    if(driverJoystick.getBButton()) {
-      fieldOriented = !fieldOriented;
-    }
-
-    if (fieldOriented) {
-        // Relative to field
-        chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(
-                xSpeed, ySpeed, turningSpeed, swerveSubsystem.getRotation2d());
-    } else {
-        // Relative to robot
-        chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turningSpeed);
-    }
+  //   if (fieldOriented) {
+  //     // Relative to field
+  //     chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(
+  //             xSpeed, ySpeed, turningSpeed, swerveSubsystem.getRotation2d());
+  // } else {
+  //     // Relative to robot
+  //     chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turningSpeed);
+  // }
 
     SmartDashboard.putNumber("xSpeed", xSpeed);
     SmartDashboard.putNumber("ySpeed", ySpeed);
@@ -88,10 +89,10 @@ public class SwerveJoystick extends CommandBase {
 
 
     // 5. Convert chassis speeds to individual module states
-    SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
+    // SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
 
     // 6. Output each module states to wheels
-    swerveSubsystem.setModuleStates(moduleStates);
+    // swerveSubsystem.setModuleStates(moduleStates);
   }
 
   // Called once the command ends or is interrupted.

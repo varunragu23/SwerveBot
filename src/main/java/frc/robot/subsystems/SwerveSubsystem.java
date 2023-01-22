@@ -8,6 +8,7 @@ import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -63,7 +64,7 @@ public class SwerveSubsystem extends SubsystemBase {
   
     private final SwerveDriveOdometry odometer = new SwerveDriveOdometry(DriveConstants.kDriveKinematics, new Rotation2d(0));
 
-
+  private boolean fieldOriented = true;
 
   public SwerveSubsystem() {
     new Thread(() -> {
@@ -138,6 +139,11 @@ public class SwerveSubsystem extends SubsystemBase {
     backRight.resetEncoders();
   }
 
+  public void reset() {
+    resetEncoders();
+    zeroHeading();
+  }
+ 
   public void testMotors() {
     // for testing purposes test each swerve module individually at first
     // once one module has been completed, replace mentions of it with the next one you're testing it with
@@ -145,4 +151,24 @@ public class SwerveSubsystem extends SubsystemBase {
     // first is speed in meteres per second, second is angle
     frontLeft.setDesiredState(testRun);
   }
+
+  public void drive(double xSpeed, double ySpeed, double turningSpeed) {
+    ChassisSpeeds chassisSpeeds;
+    if (fieldOriented) {
+      // Relative to field
+      chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(
+              xSpeed, ySpeed, turningSpeed, getRotation2d());
+    } else {
+      // Relative to robot
+        chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turningSpeed);
+    }
+
+    SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
+    setModuleStates(moduleStates);
+  }
+
+  public void toggleField() {
+    fieldOriented = !fieldOriented;
+  }
+
 }
